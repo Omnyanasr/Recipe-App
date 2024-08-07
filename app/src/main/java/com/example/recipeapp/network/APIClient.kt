@@ -17,4 +17,8 @@ object APIClient : RemoteDataSource {
     override suspend fun getAllMealsInCategory(category: String): Response<MealResponse> {
         return RetrofitService.retrofit.create(APIService::class.java).getAllMealsInCategory(category)
     }
+
+    override suspend fun getAllMealsByFirstLetter(mealFirstLetter: Char): Response<MealResponse> {
+        return RetrofitService.retrofit.create(APIService::class.java).getAllMealsByFirstLetter(mealFirstLetter)
+    }
 }

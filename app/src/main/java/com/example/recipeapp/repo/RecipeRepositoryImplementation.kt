@@ -18,4 +18,8 @@ class RecipeRepositoryImplementation(val remoteDataSource: RemoteDataSource) : R
         return remoteDataSource.getAllMealsInCategory(category)
     }
 
+    override suspend fun getAllRemoteMealsByFirstLetter(mealFirstLetter: Char): Response<MealResponse> {
+        return remoteDataSource.getAllMealsByFirstLetter(mealFirstLetter)
+    }
+
 }

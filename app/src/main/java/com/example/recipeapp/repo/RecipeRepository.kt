@@ -8,4 +8,5 @@ interface RecipeRepository {
     suspend fun getRemoteCategoryList(): Response<CategoryResponse>
     suspend fun getRemoteMealListByTitle(mealTitle: String): Response<MealResponse>
     suspend fun getAllRemoteMealsInCategory(category: String): Response<MealResponse>
+    suspend fun getAllRemoteMealsByFirstLetter(mealFirstLetter: Char): Response<MealResponse>
 }

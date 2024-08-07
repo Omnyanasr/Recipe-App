@@ -29,6 +29,16 @@ class RecipeViewModel(val recipeRepository: RecipeRepository) : ViewModel() {
         }
     }
 
+    fun getMealsByFirstLetter(firstLetter: Char){
+        viewModelScope.launch {
+            val result = recipeRepository.getAllRemoteMealsByFirstLetter(firstLetter)
+
+            if(result.isSuccessful){
+                _listOfMeals.value = result.body()
+            }
+        }
+    }
+
     fun getAllMealsInCategory(category: String){
         viewModelScope.launch {
             val result = recipeRepository.getAllRemoteMealsInCategory(category)
@@ -52,13 +62,17 @@ class RecipeViewModel(val recipeRepository: RecipeRepository) : ViewModel() {
 
     fun getAllMeals() {
         viewModelScope.launch() {
-            val listOfCategories = async(Dispatchers.IO) {recipeRepository.getRemoteCategoryList()}.await().body()
+            val listOfLiters = listOf<Char>('a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z')
 
             var mealList: MutableList<Meal> = mutableListOf()
 
-            for (category in listOfCategories!!.categories){
-                val localListOfMeals = async(Dispatchers.IO) {recipeRepository.getAllRemoteMealsInCategory(category.strCategory)}.await().body()
-                mealList.addAll(localListOfMeals!!.meals)
+            for (letter in listOfLiters){
+                val localListOfMeals = async(Dispatchers.IO) {recipeRepository.getAllRemoteMealsByFirstLetter(letter)}.await().body()
+                if (localListOfMeals!!.meals != null)
+                {
+                    mealList.addAll(localListOfMeals!!.meals)
+                }
+
             }
 
             _listOfMeals.value = MealResponse(mealList.shuffled())
@@ -66,6 +80,7 @@ class RecipeViewModel(val recipeRepository: RecipeRepository) : ViewModel() {
 
 
     }
+
 
 
 }
