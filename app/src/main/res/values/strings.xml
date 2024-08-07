@@ -2,4 +2,11 @@
     <string name="app_name">Recipe App</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="about_image_desc">admins</string>
+    <string name="about_the_application">About the Application</string>
+    <string name="about_the_creators">Our Team</string>
+    <string name="synopsis">This recipe application allows users to browse, search, and save their favorite recipes. Users can also watch recipe videos and get detailed information about each recipe. The app provides a user-friendly interface. Save your favorite recipes for quick access and share them with friends and family. Designed to inspire and simplify home cooking.</string>
+    <string name="creator_name">Creator Name</string>
+    <string name="creator_image">creator image</string>
+    <string name="about_cover">about cover</string>
 </resources>
