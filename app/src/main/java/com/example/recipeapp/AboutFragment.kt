@@ -43,7 +43,7 @@ class AboutFragment : Fragment() {
 class CreatorAdapter(private val creators: List<Pair<String, Int>>) : RecyclerView.Adapter<CreatorAdapter.CreatorViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CreatorViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_creator, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_creator_about, parent, false)
         return CreatorViewHolder(view)
     }
 
