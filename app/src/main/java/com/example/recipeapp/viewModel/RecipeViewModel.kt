@@ -61,7 +61,7 @@ class RecipeViewModel(val recipeRepository: RecipeRepository) : ViewModel() {
                 mealList.addAll(localListOfMeals!!.meals)
             }
 
-            _listOfMeals.value = MealResponse(mealList)
+            _listOfMeals.value = MealResponse(mealList.shuffled())
         }
 
 

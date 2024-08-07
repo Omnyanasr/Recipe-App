@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -49,6 +50,10 @@ class HomeFragment : Fragment() {
         recipeViewModel.listOfMeals?.observe(viewLifecycleOwner, Observer {
             myAdapter.setMeals(it.meals)
         })
+
+        myAdapter.onItemClick = {
+            Toast.makeText(requireContext(), "navigate to detail fragment", Toast.LENGTH_SHORT).show()
+        }
     }
 
     private fun getViewModel(){
@@ -57,6 +62,7 @@ class HomeFragment : Fragment() {
         )
         recipeViewModel = ViewModelProvider(this , recipeViewModelFactory).get(RecipeViewModel::class.java)
     }
+
 
 
 }
