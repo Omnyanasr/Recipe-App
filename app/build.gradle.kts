@@ -52,7 +52,7 @@ dependencies {
     implementation ("com.squareup.okhttp3:logging-interceptor:3.12.0")
 
     //Coroutines
-    implementation ("androidx.lifecycle:lifecycle-runtime-ktx:2.4.0")
+    implementation ("androidx.lifecycle:lifecycle-runtime-ktx:2.8.4")
 
     //Glide
     implementation ("com.github.bumptech.glide:glide:4.12.0")
