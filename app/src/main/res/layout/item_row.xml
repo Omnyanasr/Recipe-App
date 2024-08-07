@@ -9,7 +9,7 @@
                                    app:cardCornerRadius="20dp"
                                    android:layout_margin="10sp">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -28,17 +28,15 @@
                 android:id="@+id/recipeTitleTxt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/img_recipe"
+                android:layout_alignBottom="@+id/img_recipe"
+                android:layout_alignLeft="@+id/img_recipe"
+                android:padding="25dp"
                 android:textSize="20sp"
                 android:textStyle="bold"
-                android:textColor="@color/black"
+                android:textColor="@color/white"
                 android:textAllCaps="false"
-                android:textAlignment="center"
-                android:layout_margin="16dp"/>
-    </androidx.constraintlayout.widget.ConstraintLayout>
+                android:text="text"/>
+    </RelativeLayout>
 
 
 </androidx.cardview.widget.CardView>
