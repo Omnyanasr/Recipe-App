@@ -6,14 +6,14 @@
     android:padding="16dp">
 
     <EditText
-        android:id="@+id/email"
+        android:id="@+id/etEmail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Email"
         android:textSize="20dp" />
 
     <EditText
-        android:id="@+id/password"
+        android:id="@+id/etPassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Password"
@@ -21,7 +21,7 @@
         android:textSize="20dp"/>
 
     <Button
-        android:id="@+id/loginButton"
+        android:id="@+id/btnLogin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Login" />

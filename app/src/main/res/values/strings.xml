@@ -2,6 +2,13 @@
     <string name="app_name">Recipe App</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="password">PASSWORD</string>
+    <string name="email">EMAIL</string>
+    <string name="full_name">FULL NAME</string>
+    <string name="register">REGISTER</string>
+    <string name="confirm_password">CONFIRM PASSWORD</string>
+    <string name="passwordEditText">password</string>
+    <string name="registerButton">register</string>
     <string name="about_image_desc">admins</string>
     <string name="about_the_application">About the Application</string>
     <string name="about_the_creators">Our Team</string>
