@@ -9,4 +9,17 @@
     <string name="creator_name">Creator Name</string>
     <string name="creator_image">creator image</string>
     <string name="about_cover">about cover</string>
+    <string name="learn_more">Learn More</string>
+    <string name="not_favorite">not in favorite</string>
+    <string name="favorite">in favorite</string>
+    <string name="recipe_info">Recipe Info:</string>
+    <string name="recipe_title">"Title"</string>
+    <string name="recipe_area">Area</string>
+    <string name="recipe_category">Category</string>
+    <string name="tags">Tags</string>
+    <string name="ingrediants">Ingrediants:</string>
+    <string name="instructions">Instructions:</string>
+    <string name="more_info">More Info</string>
+    <string name="less_info">Hide Info</string>
+    <string name="content_for_scrollView">detail scroll</string>
 </resources>
