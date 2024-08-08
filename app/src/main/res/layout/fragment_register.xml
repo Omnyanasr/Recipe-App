@@ -1,38 +1,110 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="16dp">
+    tools:context=".AuthActivity">
 
-    <EditText
-        android:id="@+id/email"
+    <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Email"
-        android:textSize="20dp"/>
+        android:layout_margin="12dp"
+        app:cardElevation="6dp"
+        app:strokeColor="#2A2929"
+        app:strokeWidth="0.5dp"
+        app:cardCornerRadius="0dp">
 
-    <EditText
-        android:id="@+id/password"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Password"
-        android:inputType="textPassword"
-        android:textSize="20dp"
-        />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/ThemeOverlay.Material3.TextInputEditText.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingHorizontal="8dp"
+                    android:paddingVertical="12dp"
+                    android:hint="@string/full_name"
+                    android:id="@+id/usernameEditText"
+                    android:inputType="text"
+                    tools:ignore="InvalidId" />
 
-    <EditText
-        android:id="@+id/confirmPassword"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Confirm Password"
-        android:inputType="textPassword"
-        android:textSize="20dp" />
 
-    <Button
-        android:id="@+id/registerButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Register" />
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <com.google.android.material.textfield.TextInputEditText
+                    style="@style/ThemeOverlay.Material3.TextInputEditText.OutlinedBox"
+android:id="@+id/emailEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingHorizontal="8dp"
+                    android:paddingVertical="12dp"
+                    android:hint="@string/email"
+                    android:inputType="textEmailAddress"/>
+
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/ThemeOverlay.Material3.TextInputEditText.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:passwordToggleEnabled="true"
+                app:counterEnabled="true"
+                app:counterMaxLength="15"
+                >
+                <com.google.android.material.textfield.TextInputEditText
+android:id="@+id/password"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingHorizontal="8dp"
+                    android:paddingVertical="12dp"
+                    android:hint="@string/passwordEditText"
+                    android:maxLength="15"
+                    android:inputType="textPassword"/>
+
+
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/ThemeOverlay.Material3.TextInputEditText.OutlinedBox"
+                app:counterEnabled="true"
+                app:counterMaxLength="15"
+                app:passwordToggleEnabled="true"
+                >
+                <com.google.android.material.textfield.TextInputEditText
+android:id="@+id/etConfirmPassword"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingHorizontal="8dp"
+                    android:paddingVertical="12dp"
+                    android:hint="@string/confirm_password"
+                    android:maxLength="15"
+                    android:inputType="textPassword"/>
+
+
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnRegister"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:insetTop="0dp"
+                android:insetBottom="odp"
+                android:text="@string/registerButton"
+                style="@style/Widget.MaterialComponents.Button"
+                tools:ignore="InvalidId" />
+
+
+        </LinearLayout>
+
+    </com.google.android.material.card.MaterialCardView>
 
 </LinearLayout>
