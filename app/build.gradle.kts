@@ -84,20 +84,11 @@ dependencies {
     //Coroutines
     implementation ("androidx.lifecycle:lifecycle-runtime-ktx:2.8.4")
 
-    //Glide
-    implementation ("com.github.bumptech.glide:glide:4.12.0")
-    annotationProcessor ("com.github.bumptech.glide:compiler:4.12.0")
-    val lifecycle_version = "2.4.3"
-    val activity_version = "1.2.2"
+
 
     implementation ("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version")
     implementation ("androidx.activity:activity-ktx:$activity_version")
 
 
-    val room_version = "2.5.0"
-    implementation ("androidx.room:room-runtime:$room_version")
-    implementation ("androidx.room:room-rxjava2:$room_version")
-    implementation ("androidx.room:room-guava:$room_version")
-    testImplementation ("androidx.room:room-testing:$room_version")
-    implementation ("androidx.room:room-ktx:2.2.6")
+
 }
