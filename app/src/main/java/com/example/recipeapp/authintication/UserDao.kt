@@ -2,7 +2,7 @@ import androidx.lifecycle.LiveData
 import androidx.room.*
 import androidx.room.Insert
 import com.example.recipeapp.authintication.User
-import retrofit2.http.Query
+import androidx.room.Query
 
 @Dao
 interface UserDao {
