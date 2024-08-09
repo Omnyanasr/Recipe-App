@@ -53,7 +53,7 @@ dependencies {
     androidTestImplementation("androidx.test.ext:junit:1.2.1")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.6.1")
     implementation ("com.google.android.exoplayer:exoplayer:2.19.1")
-
+    implementation ("androidx.browser:browser:1.4.0")
 
     //Retrofit
     implementation ("com.squareup.retrofit2:retrofit:2.11.0")

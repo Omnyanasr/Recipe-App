@@ -5,138 +5,154 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <!-- Progress Indicator -->
     <com.google.android.material.progressindicator.CircularProgressIndicator
+        android:id="@+id/progress_indicator"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
         android:indeterminate="true"
         app:indicatorSize="50dp"
-        android:id="@+id/progress_indicator"/>
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
+    <!-- ScrollView to contain recipe details -->
     <ScrollView
+        android:id="@+id/scrollView"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintTop_toTopOf="parent"
         android:scrollbars="none"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
         android:contentDescription="@string/content_for_scrollView"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintVertical_bias="1.0"
-        android:id="@+id/scrollView">
+        app:layout_constraintVertical_bias="1.0">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+            <!-- Guideline for layout structure -->
             <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/guideline5"
-                app:layout_constraintGuide_begin="188dp"
-                android:orientation="horizontal"/>
+                android:orientation="horizontal"
+                app:layout_constraintGuide_begin="188dp"/>
 
+            <!-- Recipe Image -->
             <ImageView
-                android:layout_width="match_parent"
-                android:background="@color/info_gray"
-                android:scaleType="centerCrop"
-                app:srcCompat="@drawable/img_view_holder"
-                android:layout_height="255dp"
                 android:id="@+id/recipeDetailImage"
+                android:layout_width="match_parent"
+                android:layout_height="255dp"
+                android:scaleType="centerCrop"
+                android:background="@color/info_gray"
+                app:srcCompat="@drawable/img_view_holder"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"/>
 
+            <!-- Floating action button for favorites -->
             <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/favoriteBTN"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:clickable="true"
+                android:contentDescription="@string/not_favorite"
                 app:srcCompat="@drawable/ic_launcher_favorite_border_foreground"
-                android:id="@+id/favoriteBTN"
                 app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.Myapp.Button.Rounded"
-                app:layout_constraintTop_toTopOf="parent"
                 app:maxImageSize="40dp"
-                app:layout_constraintEnd_toStartOf="@+id/guideline7"
                 android:layout_marginTop="20dp"
-                android:contentDescription="@string/not_favorite"/>
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/guideline7"/>
 
+            <!-- LinearLayout containing recipe info and ingredients -->
             <LinearLayout
+                android:id="@+id/info_container"
                 android:orientation="vertical"
-                android:layout_alignTop="@id/guideline5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:visibility="visible"
                 android:layout_marginHorizontal="20sp"
                 app:layout_constraintTop_toTopOf="@+id/guideline5"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
                 app:layout_constraintEnd_toStartOf="@+id/guideline7"
                 app:layout_constraintStart_toStartOf="@+id/guideline6"
-                app:layout_constraintBottom_toBottomOf="parent">
+                app:layout_constraintBottom_toTopOf="@id/youtube_webview"> <!-- Corrected ID reference -->
 
                 <include
-                    layout="@layout/recipe_info_card"
-                    android:id="@+id/recipe_card_include"/>
+                    android:id="@+id/recipe_card_include"
+                    layout="@layout/recipe_info_card" />
 
                 <include
-                    layout="@layout/show_more"
                     android:id="@+id/more_info_include"
+                    layout="@layout/show_more"
                     android:visibility="visible"/>
 
                 <LinearLayout
+                    android:id="@+id/more_linear"
                     android:orientation="vertical"
                     android:layout_width="match_parent"
-                    android:visibility="gone"
-                    android:layout_height="match_parent"
-                    android:id="@+id/more_linear">
+                    android:layout_height="wrap_content"
+                    android:visibility="gone">
 
                     <include
-                        layout="@layout/recipe_ingrediants_card"
-                        android:id="@+id/ingrediants_include"/>
+                        android:id="@+id/ingrediants_include"
+                        layout="@layout/recipe_ingrediants_card"/>
 
                     <include
-                        layout="@layout/recipe_instruction_card"
-                        android:id="@+id/instruction_include"/>
+                        android:id="@+id/instruction_include"
+                        layout="@layout/recipe_instruction_card"/>
 
                     <include
-                        layout="@layout/show_less"
-                        android:id="@+id/less_info_include"/>
+                        android:id="@+id/less_info_include"
+                        layout="@layout/show_less"/>
                 </LinearLayout>
             </LinearLayout>
 
-            <androidx.constraintlayout.widget.Guideline
+            <!-- Button to play the video -->
+            <Button
+                android:id="@+id/play_video_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="Play Video"
+                android:layout_marginTop="16dp"
+                app:layout_constraintTop_toBottomOf="@id/info_container"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"/>
+
+            <!-- WebView for YouTube video -->
+            <WebView
+                android:id="@+id/youtube_webview"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:visibility="gone"
+                app:layout_constraintTop_toBottomOf="@id/play_video_button"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"/>
+
+            <!-- Vertical guidelines for layout structuring -->
+            <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/guideline6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:orientation="vertical"
                 app:layout_constraintGuide_begin="20dp"/>
 
             <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline7"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/guideline7"
                 android:orientation="vertical"
                 app:layout_constraintGuide_end="20dp"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
-
-    <!-- Video Player Overlay -->
-    <FrameLayout
-        android:id="@+id/video_overlay"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:visibility="gone"
-        app:layout_constraintTop_toBottomOf="@id/progress_indicator"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent">
-
-        <com.google.android.exoplayer2.ui.PlayerView
-            android:id="@+id/player_view"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"/>
-    </FrameLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+
+
