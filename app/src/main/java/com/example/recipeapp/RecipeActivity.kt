@@ -1,14 +1,18 @@
 package com.example.recipeapp
 
+import android.content.Intent
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
-import com.google.android.material.bottomnavigation.BottomNavigationView
-import androidx.appcompat.widget.Toolbar
 import androidx.navigation.ui.setupActionBarWithNavController
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class RecipeActivity : AppCompatActivity() {
     private lateinit var navController: NavController
@@ -49,6 +53,43 @@ class RecipeActivity : AppCompatActivity() {
 
             true
         }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.toolbar_menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.action_sign_out -> {
+                handleSignOut()
+                true
+            }
+            R.id.action_about -> {
+                navigateToAboutFragment()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+
+    private fun handleSignOut() {
+        AlertDialog.Builder(this)
+            .setTitle("Sign Out")
+            .setMessage("Are you sure you want to sign out?")
+            .setPositiveButton("Yes") { dialog, _ ->
+                dialog.dismiss()
+                startActivity(Intent(this, AuthActivity::class.java))
+                finish()
+            }
+            .setNegativeButton("No") { dialog, _ -> dialog.dismiss() }
+            .show()
+    }
+
+    private fun navigateToAboutFragment() {
+        // Navigate to the AboutFragment
+        navController.navigate(R.id.aboutFragment)
     }
 
     override fun onSupportNavigateUp(): Boolean {
