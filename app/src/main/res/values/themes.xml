@@ -6,4 +6,8 @@
     </style>
 
     <style name="Theme.RecipeApp" parent="Base.Theme.RecipeApp" />
+    <style name="ShapeAppearanceOverlay.Myapp.Button.Rounded" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item>
+    </style>
 </resources>
