@@ -1,6 +1,7 @@
 package com.example.recipeapp
 
 import AppDatabase
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.View
@@ -25,11 +26,11 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        emailEditText = view.findViewById(R.id.etEmail)
-        passwordEditText = view.findViewById(R.id.etPassword)
+        emailEditText = view.findViewById(R.id.emailEditText)
+        passwordEditText = view.findViewById(R.id.password)
         confirmPasswordEditText = view.findViewById(R.id.etConfirmPassword)
         registerButton = view.findViewById(R.id.btnRegister)
-        db = AppDatabase.invoke(requireContext())
+        db = AppDatabase.getDatabase(requireContext())
         sharedPrefManager = SharedPrefManager(requireContext())
 
         registerButton.setOnClickListener {
@@ -60,7 +61,9 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
             db.userDao().insert(user)
             withContext(Dispatchers.Main) {
                 sharedPrefManager.saveLoginStatus(true)
-                findNavController().navigate(R.id.action_registerFragment_to_homeFragment)
+                val intent = Intent(requireContext(), RecipeActivity::class.java)
+                startActivity(intent)
+                requireActivity().finish()  // This prevents the user from navigating back to the AuthActivity
             }
         }
     }

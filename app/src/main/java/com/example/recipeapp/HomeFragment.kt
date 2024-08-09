@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.recipeapp.network.APIClient
@@ -17,54 +18,41 @@ import com.example.recipeapp.viewModel.RecipeViewModel
 import com.example.recipeapp.viewModel.RecipeViewModelFactory
 
 class HomeFragment : Fragment() {
-
     lateinit var recyclerView: RecyclerView
     lateinit var myAdapter: MyRecipeAdapter
-    lateinit var recipeViewModel : RecipeViewModel
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
+    lateinit var recipeViewModel: RecipeViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_home, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         recyclerView = view.findViewById(R.id.recipeList)
-
         myAdapter = MyRecipeAdapter(requireContext())
-        val layoutManager = LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
-
         recyclerView.adapter = myAdapter
-        recyclerView.layoutManager = layoutManager
+        recyclerView.layoutManager = LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
+
         getViewModel()
         recipeViewModel.getAllMeals()
         recipeViewModel.listOfMeals?.observe(viewLifecycleOwner, Observer {
             myAdapter.setMeals(it.meals)
         })
 
-        myAdapter.onItemClick = {
-            Toast.makeText(requireContext(), "navigate to detail fragment", Toast.LENGTH_SHORT).show()
+         myAdapter.onItemClick = {
+            val action = HomeFragmentDirections.actionHomeFragmentToRecipeDetailFragment()
+            findNavController().navigate(action)
         }
     }
 
-    private fun getViewModel(){
+
+    private fun getViewModel() {
         val recipeViewModelFactory = RecipeViewModelFactory(
             RecipeRepositoryImplementation(APIClient)
         )
-        recipeViewModel = ViewModelProvider(this , recipeViewModelFactory).get(RecipeViewModel::class.java)
+        recipeViewModel = ViewModelProvider(this, recipeViewModelFactory).get(RecipeViewModel::class.java)
     }
-
-
-
-
 }
