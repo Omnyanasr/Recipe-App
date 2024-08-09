@@ -27,11 +27,12 @@
                 app:layout_constraintTop_toTopOf="@+id/imageView3" android:layout_marginStart="20dp"/>
         <TextView
                 android:text="TextView"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content" android:id="@+id/info_title"
+                app:layout_constraintLeft_toRightOf="parent"
                 android:textColor="@color/info_gray" app:layout_constraintStart_toStartOf="@+id/textView3"
                 app:layout_constraintTop_toBottomOf="@+id/textView3" android:layout_marginTop="10dp"
-                android:textSize="16sp"/>
+                android:textSize="16sp" app:layout_constraintEnd_toEndOf="parent"/>
         <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" app:srcCompat="@drawable/ic_action_name_location"
@@ -52,17 +53,18 @@
                 app:layout_constraintTop_toBottomOf="@+id/textView2" android:layout_marginTop="20dp"/>
         <TextView
                 android:text="@string/recipe_area"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content" android:id="@+id/textView5"
                 app:layout_constraintTop_toTopOf="@+id/imageView" app:layout_constraintStart_toEndOf="@+id/imageView"
                 android:layout_marginStart="20dp" android:textSize="16sp"/>
         <TextView
                 android:text="TextView"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content" android:id="@+id/info_area"
                 app:layout_constraintTop_toBottomOf="@+id/textView5"
-                android:layout_marginTop="10dp" app:layout_constraintStart_toStartOf="@+id/textView5"
-                android:textColor="@color/info_gray" android:textSize="16sp"/>
+                android:layout_marginTop="10dp"
+                android:textColor="@color/info_gray" android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="@+id/textView5"/>
         <TextView
                 android:text="@string/recipe_category"
                 android:layout_width="wrap_content"
@@ -71,12 +73,13 @@
                 app:layout_constraintStart_toEndOf="@+id/imageView2" android:layout_marginStart="20dp"/>
         <TextView
                 android:text="TextView"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content" android:id="@+id/info_category"
                 app:layout_constraintTop_toBottomOf="@+id/textView7"
-                app:layout_constraintStart_toStartOf="@+id/textView7" android:textColor="@color/info_gray"
+                android:textColor="@color/info_gray"
                 android:textSize="16sp" android:layout_marginTop="10dp"
-        />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/textView7"/>
         <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" app:srcCompat="@drawable/ic_action_name_tags"
@@ -91,12 +94,13 @@
                 app:layout_constraintTop_toTopOf="@+id/imageView4" android:layout_marginStart="20dp"/>
         <TextView
                 android:text="TextView"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content" android:id="@+id/info_tags"
-                app:layout_constraintStart_toStartOf="@+id/textView9"
                 app:layout_constraintTop_toBottomOf="@+id/textView9" android:layout_marginTop="10dp"
                 android:textSize="16sp" android:textColor="@color/info_gray"
-                app:layout_constraintBottom_toBottomOf="parent" android:layout_marginBottom="20dp"/>
+                app:layout_constraintBottom_toBottomOf="parent" android:layout_marginBottom="20dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/textView9"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>
