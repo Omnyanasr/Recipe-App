@@ -1,11 +1,16 @@
 package com.example.recipeapp.repo
 
+import com.example.recipeapp.db.LocalDataSource
 import com.example.recipeapp.modules.CategoryResponse
+import com.example.recipeapp.modules.Meal
 import com.example.recipeapp.modules.MealResponse
 import com.example.recipeapp.network.RemoteDataSource
 import retrofit2.Response
 
 class RecipeRepositoryImplementation(val remoteDataSource: RemoteDataSource) : RecipeRepository {
+    lateinit var  localDataSource: LocalDataSource
+
+
     override suspend fun getRemoteCategoryList(): Response<CategoryResponse> {
         return remoteDataSource.getCategoryList()
     }
@@ -22,4 +27,19 @@ class RecipeRepositoryImplementation(val remoteDataSource: RemoteDataSource) : R
         return remoteDataSource.getAllMealsByFirstLetter(mealFirstLetter)
     }
 
+    override suspend fun getAllFavoriteRecipes(): List<Meal> {
+        return localDataSource.getAllFavoriteRecipes()
+    }
+
+    override suspend fun insertIntoFavorite(meal: Meal) {
+        localDataSource.insert(meal)
+    }
+
+    override suspend fun deleteFromFavorite(meal: Meal) {
+        localDataSource.delete(meal)
+    }
+
+    override suspend fun isFavoriteRecipe(recipeId: String): Int {
+        return localDataSource.isFavoriteRecipe(recipeId)
+    }
 }
