@@ -39,7 +39,7 @@ class FavoriteFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        recyclerView = view.findViewById(R.id.favoriteList)
+        recyclerView = view.findViewById(R.id.favoriteRecyclerView)
         myAdapter = MyRecipeAdapter(requireContext())
         recyclerView.adapter = myAdapter
         recyclerView.layoutManager = LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
