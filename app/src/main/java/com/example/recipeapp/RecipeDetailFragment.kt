@@ -13,8 +13,8 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.ScrollView
 import android.widget.TextView
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.example.recipeapp.modules.Meal
 import com.example.recipeapp.network.APIClient
@@ -28,6 +28,7 @@ import java.util.concurrent.Executors
 
 class RecipeDetailFragment : Fragment() {
 
+    val args : RecipeDetailFragmentArgs by navArgs()
     lateinit var viewModel: RecipeViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -59,9 +60,11 @@ class RecipeDetailFragment : Fragment() {
         val progressIndicator : CircularProgressIndicator = view.findViewById(R.id.progress_indicator)
 
         getViewModel()
-        viewModel.getAllMeals()
-        viewModel.listOfMeals?.observe(viewLifecycleOwner, Observer {
+        viewModel.getMealListByTitle(args.mealTitle)
+
+        viewModel.listOfMeals.observe(viewLifecycleOwner, {
             val meal = it.meals[0]
+
             Glide.with(requireContext()).load(meal.strMealThumb).into(image)
             category.text = meal.strCategory
             title.text = meal.strMeal
@@ -69,13 +72,10 @@ class RecipeDetailFragment : Fragment() {
             tags.text = meal.strTags
             instruction.text = meal.strInstructions
             ingrediants.text = getIngerdiantString(meal)
-
         })
 
+
         fab.setOnClickListener {
-            Log.d("DEBUG", "onViewCreated: fab.contentDescription = ${fab.contentDescription}")
-            Log.d("DEBUG", "onViewCreated: getText(R.string.not_favorite) = ${getText(R.string.not_favorite)}")
-            Log.d("DEBUG", "onViewCreated: getText(R.string.favorite) = ${getText(R.string.favorite)}")
             if(fab.contentDescription == getText(R.string.not_favorite)){
                 fab.setImageResource(R.drawable.ic_launcher_favorite_foreground)
                 fab.contentDescription = getString(R.string.favorite)
