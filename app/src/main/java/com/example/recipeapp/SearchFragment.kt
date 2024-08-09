@@ -8,6 +8,7 @@ import android.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.recipeapp.repo.RecipeRepositoryImplementation
@@ -72,8 +73,11 @@ class SearchFragment : Fragment() {
             }
         })
 
-        // item click listener for navigation when nav graph is done
-
+        adapter.onItemClick = {
+            val navController = Navigation.findNavController(view)
+            val action = SearchFragmentDirections.actionSearchFragmentToRecipeDetailFragment(it.strMeal)
+            navController.navigate(action)
+        }
         return view
     }
 }
