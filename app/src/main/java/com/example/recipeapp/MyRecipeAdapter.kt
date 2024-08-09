@@ -40,6 +40,7 @@ class MyRecipeAdapter(val context: Context) : RecyclerView.Adapter<MyRecipeAdapt
                 }
 
          */
+
         holder.card.setOnClickListener{
             onItemClick?.invoke(meals?.get(position)!!)
         }
