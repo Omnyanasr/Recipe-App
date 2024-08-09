@@ -1,11 +1,16 @@
 package com.example.recipeapp.repo;
 
 import android.content.Context;
+
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
+import androidx.room.TypeConverters;
 
-@Database(entities = {RecipeEntity.class}, version = 1)
+import com.example.recipeapp.modules.Converters;
+
+@Database(entities = {RecipeEntity.class, MealEntity.class}, version = 1)  // Add MealEntity here
+@TypeConverters(Converters.class)  // Register your TypeConverters here if needed
 public abstract class RecipeDatabase extends RoomDatabase {
 
     public abstract RecipeDao recipeDao();
@@ -26,4 +31,7 @@ public abstract class RecipeDatabase extends RoomDatabase {
         return INSTANCE;
     }
 }
+
+
+
 

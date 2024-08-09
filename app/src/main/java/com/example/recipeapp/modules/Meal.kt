@@ -1,7 +1,9 @@
 package com.example.recipeapp.modules
 
+import androidx.room.Entity
 import java.io.Serializable
 
+@Entity
 data class Meal(
     val dateModified: Any,
     val idMeal: String,

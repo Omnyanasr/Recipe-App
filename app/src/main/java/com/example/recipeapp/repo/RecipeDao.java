@@ -7,21 +7,29 @@ import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 
+
 import java.util.List;
 
 @Dao
 public interface RecipeDao {
 
-    @Query("SELECT * FROM favorite_recipes")
-    LiveData<List<RecipeEntity>> getAllFavorites();
+    // Fetch all favorite meals (stored as MealEntity)
+    @Query("SELECT * FROM meals")
+    LiveData<List<MealEntity>> getAllMeals();
 
+    // Insert a single MealEntity into the database
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insertRecipe(RecipeEntity recipe);
+    void insertMeal(MealEntity meal);
 
+    // Delete a MealEntity from the database
     @Delete
-    void deleteRecipe(RecipeEntity recipe);
+    void deleteMeal(MealEntity meal);
 
-    @Query("SELECT * FROM favorite_recipes WHERE recipeId = :recipeId LIMIT 1")
-    RecipeEntity getRecipeById(String recipeId);
+    // Fetch a single meal by its ID
+    @Query("SELECT * FROM meals WHERE idMeal = :mealId LIMIT 1")
+    MealEntity getMealById(String mealId);
+
+    // Additional queries if needed
 }
+
 

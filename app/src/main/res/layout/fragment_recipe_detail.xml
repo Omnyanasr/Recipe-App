@@ -1,88 +1,142 @@
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                                                   xmlns:app="http://schemas.android.com/apk/res-auto"
-                                                   xmlns:tools="http://schemas.android.com/tools"
-                                                   android:layout_width="match_parent"
-                                                   android:layout_height="match_parent">
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <com.google.android.material.progressindicator.CircularProgressIndicator
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:indeterminate="true" app:indicatorSize="50dp"
-            android:id="@+id/progress_indicator"/>
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:indeterminate="true"
+        app:indicatorSize="50dp"
+        android:id="@+id/progress_indicator"/>
 
     <ScrollView
-            android:layout_width="0dp"
-            android:layout_height="0dp" app:layout_constraintTop_toTopOf="parent"
-            android:scrollbars="none"
-            app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent" android:contentDescription="@string/content_for_scrollView"
-            app:layout_constraintHorizontal_bias="0.0" app:layout_constraintVertical_bias="1.0"
-            android:id="@+id/scrollView">
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toTopOf="parent"
+        android:scrollbars="none"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:contentDescription="@string/content_for_scrollView"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintVertical_bias="1.0"
+        android:id="@+id/scrollView">
+
         <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-            <androidx.constraintlayout.widget.Guideline android:layout_width="wrap_content"
-                                                        android:layout_height="wrap_content"
-                                                        android:id="@+id/guideline5"
-                                                        app:layout_constraintGuide_begin="188dp"
-                                                        android:orientation="horizontal"/>
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.constraintlayout.widget.Guideline
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/guideline5"
+                app:layout_constraintGuide_begin="188dp"
+                android:orientation="horizontal"/>
+
             <ImageView
-                    android:layout_width="match_parent"
-                    android:background="@color/info_gray"
-                    android:scaleType="centerCrop"
-                    app:srcCompat="@drawable/img_view_holder"
-                    android:layout_height="255dp"
-                    android:id="@+id/recipeDetailImage" app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent"/>
+                android:layout_width="match_parent"
+                android:background="@color/info_gray"
+                android:scaleType="centerCrop"
+                app:srcCompat="@drawable/img_view_holder"
+                android:layout_height="255dp"
+                android:id="@+id/recipeDetailImage"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"/>
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:clickable="true" app:srcCompat="@drawable/ic_launcher_favorite_border_foreground"
-                    android:id="@+id/favoriteBTN"
-                    app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.Myapp.Button.Rounded"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:maxImageSize="40dp"
-                    app:layout_constraintEnd_toStartOf="@+id/guideline7" android:layout_marginTop="20dp"
-                    android:contentDescription="@string/not_favorite"/>
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                app:srcCompat="@drawable/ic_launcher_favorite_border_foreground"
+                android:id="@+id/favoriteBTN"
+                app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.Myapp.Button.Rounded"
+                app:layout_constraintTop_toTopOf="parent"
+                app:maxImageSize="40dp"
+                app:layout_constraintEnd_toStartOf="@+id/guideline7"
+                android:layout_marginTop="20dp"
+                android:contentDescription="@string/not_favorite"/>
+
             <LinearLayout
-                    android:orientation="vertical"
-                    android:layout_alignTop="@id/guideline5"
-                    android:visibility="visible"
-                    android:layout_marginHorizontal="20sp"
-                    app:layout_constraintTop_toTopOf="@+id/guideline5"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    app:layout_constraintEnd_toStartOf="@+id/guideline7"
-                    app:layout_constraintStart_toStartOf="@+id/guideline6"
-                    app:layout_constraintBottom_toBottomOf="parent">
-                <include layout="@layout/recipe_info_card" android:id="@+id/recipe_card_include"/>
-                <include layout="@layout/show_more" android:id="@+id/more_info_include" android:visibility="visible"/>
+                android:orientation="vertical"
+                android:layout_alignTop="@id/guideline5"
+                android:visibility="visible"
+                android:layout_marginHorizontal="20sp"
+                app:layout_constraintTop_toTopOf="@+id/guideline5"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_constraintEnd_toStartOf="@+id/guideline7"
+                app:layout_constraintStart_toStartOf="@+id/guideline6"
+                app:layout_constraintBottom_toBottomOf="parent">
+
+                <include
+                    layout="@layout/recipe_info_card"
+                    android:id="@+id/recipe_card_include"/>
+
+                <include
+                    layout="@layout/show_more"
+                    android:id="@+id/more_info_include"
+                    android:visibility="visible"/>
+
                 <LinearLayout
-                        android:orientation="vertical"
-                        android:layout_width="match_parent"
-                        android:visibility="gone"
-                        android:layout_height="match_parent" android:id="@+id/more_linear"
-                >
-                    <include layout="@layout/recipe_ingrediants_card" android:id="@+id/ingrediants_include"/>
-                    <include layout="@layout/recipe_instruction_card" android:id="@+id/instruction_include"/>
-                    <include layout="@layout/show_less" android:id="@+id/less_info_include"/>
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:visibility="gone"
+                    android:layout_height="match_parent"
+                    android:id="@+id/more_linear">
+
+                    <include
+                        layout="@layout/recipe_ingrediants_card"
+                        android:id="@+id/ingrediants_include"/>
+
+                    <include
+                        layout="@layout/recipe_instruction_card"
+                        android:id="@+id/instruction_include"/>
+
+                    <include
+                        layout="@layout/show_less"
+                        android:id="@+id/less_info_include"/>
                 </LinearLayout>
             </LinearLayout>
 
-            <androidx.constraintlayout.widget.Guideline android:layout_width="wrap_content"
-                                                        android:layout_height="wrap_content"
-                                                        android:id="@+id/guideline6"
-                                                        android:orientation="vertical"
-                                                        app:layout_constraintGuide_begin="20dp"/>
-            <androidx.constraintlayout.widget.Guideline android:layout_width="wrap_content"
-                                                        android:layout_height="wrap_content"
-                                                        android:id="@+id/guideline7"
-                                                        android:orientation="vertical"
-                                                        app:layout_constraintGuide_end="20dp"/>
+            <androidx.constraintlayout.widget.Guideline
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/guideline6"
+                android:orientation="vertical"
+                app:layout_constraintGuide_begin="20dp"/>
+
+            <androidx.constraintlayout.widget.Guideline
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/guideline7"
+                android:orientation="vertical"
+                app:layout_constraintGuide_end="20dp"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
+
+    <!-- Video Player Overlay -->
+    <FrameLayout
+        android:id="@+id/video_overlay"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@id/progress_indicator"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <com.google.android.exoplayer2.ui.PlayerView
+            android:id="@+id/player_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"/>
+    </FrameLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
