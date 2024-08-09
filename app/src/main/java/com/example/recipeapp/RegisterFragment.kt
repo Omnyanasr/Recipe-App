@@ -23,6 +23,7 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
     private lateinit var registerButton: Button
     private lateinit var db: AppDatabase
     private lateinit var sharedPrefManager: SharedPrefManager
+    private lateinit var loginButton: Button
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -30,6 +31,7 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
         passwordEditText = view.findViewById(R.id.password)
         confirmPasswordEditText = view.findViewById(R.id.etConfirmPassword)
         registerButton = view.findViewById(R.id.btnRegister)
+        loginButton = view.findViewById(R.id.loginbtn)
         db = AppDatabase.getDatabase(requireContext())
         sharedPrefManager = SharedPrefManager(requireContext())
 
@@ -40,6 +42,11 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
             if (validateInput(email, password, confirmPassword)) {
                 registerUser(email, password)
             }
+        }
+
+        // Set up register button click listener
+        loginButton.setOnClickListener {
+            navigateToLoginFragment()
         }
     }
 
@@ -66,5 +73,9 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
                 requireActivity().finish()  // This prevents the user from navigating back to the AuthActivity
             }
         }
+    }
+
+    private fun navigateToLoginFragment() {
+        findNavController().navigate(R.id.action_registerFragment_to_loginFragment)
     }
 }
