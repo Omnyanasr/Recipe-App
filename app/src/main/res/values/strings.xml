@@ -29,4 +29,10 @@
     <string name="more_info">More Info</string>
     <string name="less_info">Hide Info</string>
     <string name="content_for_scrollView">detail scroll</string>
+    <string name="sign_out">Sign Out</string>
+    <string name="about_the_creator">About the Creator</string>
+    <string name="fade_about">fade</string>
+    <string name="home_nav">Home</string>
+    <string name="favorites_nav">Favorites</string>
+    <string name="search_nav">Search</string>
 </resources>
