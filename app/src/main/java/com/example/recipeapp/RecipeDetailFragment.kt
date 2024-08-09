@@ -16,6 +16,7 @@ import android.widget.TextView
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
+import com.example.recipeapp.db.LocalDataSource
 import com.example.recipeapp.modules.Meal
 import com.example.recipeapp.network.APIClient
 import com.example.recipeapp.repo.RecipeRepositoryImplementation
@@ -29,6 +30,7 @@ import java.util.concurrent.Executors
 class RecipeDetailFragment : Fragment() {
 
     val args : RecipeDetailFragmentArgs by navArgs()
+    lateinit var currentMeal : Meal
     lateinit var viewModel: RecipeViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -53,38 +55,26 @@ class RecipeDetailFragment : Fragment() {
         val tags : TextView = view.findViewById(R.id.info_tags)
         val ingrediants : TextView = view.findViewById(R.id.ingrediants)
         val instruction : TextView = view.findViewById(R.id.instructions)
-        val fab : FloatingActionButton = view.findViewById(R.id.favoriteBTN)
         val moreInfoBTN : View = view.findViewById(R.id.more_info_include)
         val moreInfoLayout : LinearLayout = view.findViewById(R.id.more_linear)
         val lessInfoBTN : View = view.findViewById(R.id.less_info_include)
-        val progressIndicator : CircularProgressIndicator = view.findViewById(R.id.progress_indicator)
+
 
         getViewModel()
-        viewModel.getMealListByTitle(args.mealTitle)
-
         viewModel.listOfMeals.observe(viewLifecycleOwner, {
-            val meal = it.meals[0]
+            currentMeal = it.meals[0]
 
-            Glide.with(requireContext()).load(meal.strMealThumb).into(image)
-            category.text = meal.strCategory
-            title.text = meal.strMeal
-            area.text = meal.strArea
-            tags.text = meal.strTags
-            instruction.text = meal.strInstructions
-            ingrediants.text = getIngerdiantString(meal)
+            Glide.with(requireContext()).load(currentMeal.strMealThumb).into(image)
+            category.text = currentMeal.strCategory
+            title.text = currentMeal.strMeal
+            area.text = currentMeal.strArea
+            tags.text = currentMeal.strTags
+            instruction.text = currentMeal.strInstructions
+            ingrediants.text = getIngerdiantString(currentMeal)
+            changeFabImage(view)
         })
 
-
-        fab.setOnClickListener {
-            if(fab.contentDescription == getText(R.string.not_favorite)){
-                fab.setImageResource(R.drawable.ic_launcher_favorite_foreground)
-                fab.contentDescription = getString(R.string.favorite)
-            }else{
-                fab.setImageResource(R.drawable.ic_launcher_favorite_border_foreground)
-                fab.contentDescription = getText(R.string.not_favorite)
-            }
-
-        }
+        viewModel.getMealListByTitle(args.mealTitle)
 
         moreInfoBTN.setOnClickListener {
             moreInfoLayout.visibility = View.VISIBLE
@@ -122,19 +112,21 @@ class RecipeDetailFragment : Fragment() {
     }
 
     private fun getViewModel(){
+        val recipeRepositoryImplementation =  RecipeRepositoryImplementation(APIClient)
+        recipeRepositoryImplementation.localDataSource = LocalDataSource.getInstance(requireContext())!!
         val recipeViewModelFactory = RecipeViewModelFactory(
-            RecipeRepositoryImplementation(APIClient)
+            recipeRepositoryImplementation
         )
         viewModel = ViewModelProvider(this , recipeViewModelFactory).get(RecipeViewModel::class.java)
     }
 
     private fun getIngerdiantString(meal: Meal): String{
-        val listOfIngrediants = listOf<String>(meal.strIngredient1, meal.strIngredient2, meal.strIngredient3, meal.strIngredient4,
+        val listOfIngrediants = listOf<String?>(meal.strIngredient1, meal.strIngredient2, meal.strIngredient3, meal.strIngredient4,
                     meal.strIngredient5, meal.strIngredient6, meal.strIngredient7, meal.strIngredient8, meal.strIngredient9,
                     meal.strIngredient10, meal.strIngredient11, meal.strIngredient12,meal.strIngredient13, meal.strIngredient14,
                     meal.strIngredient15,meal.strIngredient16, meal.strIngredient17,meal.strIngredient18,meal.strIngredient19,meal.strIngredient20)
 
-        val listOfMeasures = listOf<String>(meal.strMeasure1,meal.strMeasure2, meal.strMeasure3, meal.strMeasure4, meal.strMeasure5, meal.strMeasure6, meal.strMeasure7, meal.strMeasure8, meal.strMeasure9, meal.strMeasure10,meal.strMeasure12,
+        val listOfMeasures = listOf<String?>(meal.strMeasure1,meal.strMeasure2, meal.strMeasure3, meal.strMeasure4, meal.strMeasure5, meal.strMeasure6, meal.strMeasure7, meal.strMeasure8, meal.strMeasure9, meal.strMeasure10, meal.strMeasure11,meal.strMeasure12,
             meal.strMeasure13, meal.strMeasure14, meal.strMeasure15, meal.strMeasure16, meal.strMeasure17, meal.strMeasure18, meal.strMeasure19, meal.strMeasure20)
 
         var finalString : String = ""
@@ -151,6 +143,32 @@ class RecipeDetailFragment : Fragment() {
         return finalString
     }
 
+    fun changeFabImage(view: View)
+    {
+        val fab : FloatingActionButton = view.findViewById(R.id.favoriteBTN)
+        viewModel.isFavorite.observe(viewLifecycleOwner, {isFavorite ->
+            if(isFavorite){
+                fab.setImageResource(R.drawable.ic_launcher_favorite_foreground)
+            }else{
+                fab.setImageResource(R.drawable.ic_launcher_favorite_border_foreground)
+            }
+        })
 
+
+        fab.setOnClickListener {
+            if(viewModel.isFavorite.value == false){
+                viewModel.insertIntoFavoriteRecipe(currentMeal)
+                fab.setImageResource(R.drawable.ic_launcher_favorite_foreground)
+//                fab.contentDescription = getString(R.string.favorite)
+            }else{
+                viewModel.deleteFromFavoriteRecipe(currentMeal)
+                fab.setImageResource(R.drawable.ic_launcher_favorite_border_foreground)
+//                fab.contentDescription = getText(R.string.not_favorite)
+            }
+
+        }
+
+        viewModel.isFavoriteRecipe(currentMeal.idMeal)
+    }
 
 }

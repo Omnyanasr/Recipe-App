@@ -13,6 +13,7 @@ import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.recipeapp.db.LocalDataSource
 import com.example.recipeapp.network.APIClient
 import com.example.recipeapp.network.RetrofitService
 import com.example.recipeapp.repo.RecipeRepositoryImplementation
@@ -23,7 +24,6 @@ class HomeFragment : Fragment() {
     lateinit var recyclerView: RecyclerView
     lateinit var myAdapter: MyRecipeAdapter
     lateinit var recipeViewModel: RecipeViewModel
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -39,16 +39,18 @@ class HomeFragment : Fragment() {
         recyclerView.layoutManager = LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
 
         getViewModel()
-        recipeViewModel.getAllMeals()
         recipeViewModel.listOfMeals?.observe(viewLifecycleOwner, Observer {
             myAdapter.setMeals(it.meals)
         })
+
+        recipeViewModel.getAllMeals()
 
          myAdapter.onItemClick = {
              val navController = Navigation.findNavController(view)
             val action = HomeFragmentDirections.actionHomeFragmentToRecipeDetailFragment(it.strMeal)
             navController.navigate(action)
         }
+
     }
 
 
