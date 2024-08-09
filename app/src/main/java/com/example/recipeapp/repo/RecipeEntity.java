@@ -2,6 +2,7 @@ package com.example.recipeapp.repo;
 
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
+import androidx.room.ColumnInfo;
 
 @Entity(tableName = "favorite_recipes")
 public class RecipeEntity {
@@ -9,17 +10,23 @@ public class RecipeEntity {
     @PrimaryKey(autoGenerate = true)
     private int id;
 
+    @ColumnInfo(name = "recipe_id")
     private String recipeId;
+
+    @ColumnInfo(name = "name")
     private String name;
+
+    @ColumnInfo(name = "image_url")
     private String imageUrl;
 
+    // Constructor
     public RecipeEntity(String recipeId, String name, String imageUrl) {
         this.recipeId = recipeId;
         this.name = name;
         this.imageUrl = imageUrl;
     }
 
-    // Getters and setters
+    // Getters and Setters
     public int getId() {
         return id;
     }
