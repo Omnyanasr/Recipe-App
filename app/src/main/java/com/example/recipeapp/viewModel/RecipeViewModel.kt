@@ -16,7 +16,8 @@ import kotlinx.coroutines.launch
 class RecipeViewModel(val recipeRepository: RecipeRepository) : ViewModel() {
     private val _listOfMeals = MutableLiveData<MealResponse>()
     private var _listOfCategories = MutableLiveData<CategoryResponse>()
-    val listOfCategories: LiveData<CategoryResponse> = _listOfCategories
+    private val _isFavorite = MutableLiveData<Boolean>()
+    val isFavorite : LiveData<Boolean> = _isFavorite
     val listOfMeals : LiveData<MealResponse> = _listOfMeals
 
     fun getMealListByTitle(mealTitle: String){
@@ -81,6 +82,28 @@ class RecipeViewModel(val recipeRepository: RecipeRepository) : ViewModel() {
 
     }
 
+    fun getAllFavoriteRecipes(){
+        viewModelScope.launch() {
+            _listOfMeals.value = MealResponse(recipeRepository.getAllFavoriteRecipes())
+        }
+    }
 
+    fun insertIntoFavoriteRecipe(meal: Meal){
+        viewModelScope.launch() {
+            recipeRepository.insertIntoFavorite(meal)
+        }
+    }
+
+    fun deleteFromFavoriteRecipe(meal: Meal){
+        viewModelScope.launch() {
+            recipeRepository.deleteFromFavorite(meal)
+        }
+    }
+
+    fun isFavoriteRecipe(recipeId: String){
+        viewModelScope.launch {
+            _isFavorite.value = recipeRepository.isFavoriteRecipe(recipeId) > 0
+        }
+    }
 
 }

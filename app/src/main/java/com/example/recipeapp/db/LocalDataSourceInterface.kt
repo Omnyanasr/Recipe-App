@@ -6,7 +6,8 @@ import com.example.recipeapp.modules.MealResponse
 
 interface LocalDataSourceInterface {
 
-    suspend fun getAllData() : LiveData<MealResponse>
-    suspend fun insertData(meal: Meal)
-    suspend fun deleteData(meal: Meal)
+    suspend fun getAllFavoriteRecipes() : List<Meal>
+    suspend fun insert(meal: Meal)
+    suspend fun delete(meal: Meal)
+    suspend fun isFavoriteRecipe(recipeId: String): Int
 }
