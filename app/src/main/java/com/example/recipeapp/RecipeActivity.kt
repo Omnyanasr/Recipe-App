@@ -2,12 +2,13 @@ package com.example.recipeapp
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.widget.Toolbar
-import androidx.navigation.NavController
-import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.setupActionBarWithNavController
 
 class RecipeActivity : AppCompatActivity() {
     private lateinit var navController: NavController
@@ -31,7 +32,23 @@ class RecipeActivity : AppCompatActivity() {
 
         // Setup ActionBar with NavController
         appBarConfiguration = AppBarConfiguration(navController.graph)
-        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration)
+        setupActionBarWithNavController(navController, appBarConfiguration)
+
+        // Handle BottomNavigationView item selection
+        bottomNavigationView.setOnItemSelectedListener { menuItem ->
+            val destinationId = when (menuItem.itemId) {
+                R.id.homeFragment -> R.id.homeFragment
+                R.id.favoriteFragment -> R.id.favoriteFragment
+                R.id.searchFragment -> R.id.searchFragment
+                else -> return@setOnItemSelectedListener false
+            }
+
+            if (navController.currentDestination?.id != destinationId) {
+                navController.navigate(destinationId)
+            }
+
+            true
+        }
     }
 
     override fun onSupportNavigateUp(): Boolean {
