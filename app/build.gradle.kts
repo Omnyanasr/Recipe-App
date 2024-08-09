@@ -1,7 +1,8 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
-}
+    id("androidx.navigation.safeargs")
+    id("kotlin-kapt")}
 
 android {
     namespace = "com.example.recipeapp"
@@ -25,6 +26,7 @@ android {
                 "proguard-rules.pro"
             )
         }
+
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
@@ -33,7 +35,9 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+
 }
+
 
 dependencies {
 
@@ -67,13 +71,13 @@ dependencies {
     implementation ("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version")
     implementation ("androidx.activity:activity-ktx:$activity_version")
 
+    
+    implementation ("androidx.room:room-runtime:2.6.1")
+    kapt ("androidx.room:room-compiler:2.6.1")
+    implementation("androidx.room:room-ktx:2.6.1")
+    testImplementation("androidx.room:room-testing:2.6.1")
+    implementation("androidx.room:room-paging:2.6.1")
 
-    val room_version = "2.5.0"
-    implementation ("androidx.room:room-runtime:$room_version")
-    implementation ("androidx.room:room-rxjava2:$room_version")
-    implementation ("androidx.room:room-guava:$room_version")
-    testImplementation ("androidx.room:room-testing:$room_version")
-    implementation ("androidx.room:room-ktx:2.2.6")
 
     //Retrofit
     implementation ("com.squareup.retrofit2:retrofit:2.6.2")
@@ -88,6 +92,10 @@ dependencies {
 
     implementation ("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version")
     implementation ("androidx.activity:activity-ktx:$activity_version")
+
+
+
+    implementation ("com.airbnb.android:lottie:5.0.3")
 
 
 
