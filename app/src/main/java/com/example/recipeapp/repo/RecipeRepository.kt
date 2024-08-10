@@ -10,6 +10,9 @@ interface RecipeRepository {
     suspend fun getRemoteMealListByTitle(mealTitle: String): Response<MealResponse>
     suspend fun getAllRemoteMealsInCategory(category: String): Response<MealResponse>
     suspend fun getAllRemoteMealsByFirstLetter(mealFirstLetter: Char): Response<MealResponse>
+
+    suspend fun getAllRemoteMealsByIngredient(ingredient: String): Response<MealResponse> // New method
+
     suspend fun getAllFavoriteRecipes() : List<Meal>
     suspend fun insertIntoFavorite(meal: Meal)
     suspend fun deleteFromFavorite(meal: Meal)

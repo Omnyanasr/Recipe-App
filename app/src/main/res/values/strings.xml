@@ -35,4 +35,12 @@
     <string name="search_nav">Search</string>
     <string name="login">Login</string>
     <string name="loginfragment">loginFragment</string>
+    <string name="select_category">Select Category</string>
+    <string name="search_by_ingredient">Search by ingredient</string>
+
+    <string-array name="search_criteria_options">
+        <item>Title</item>
+        <item>Category</item>
+        <item>Ingredient</item>
+    </string-array>
 </resources>

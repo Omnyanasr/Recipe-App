@@ -106,4 +106,14 @@ class RecipeViewModel(val recipeRepository: RecipeRepository) : ViewModel() {
         }
     }
 
+    fun getMealListByIngredient(ingredient: String) {
+        viewModelScope.launch {
+            val result = recipeRepository.getAllRemoteMealsByIngredient(ingredient)
+
+            if (result.isSuccessful) {
+                _listOfMeals.value = result.body()
+            }
+        }
+    }
+
 }

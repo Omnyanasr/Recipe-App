@@ -4,7 +4,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
 import android.widget.SearchView
+import android.widget.Spinner
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -23,6 +25,7 @@ class SearchFragment : Fragment() {
     private lateinit var adapter: MyRecipeAdapter
     private lateinit var recyclerView: RecyclerView
     private lateinit var searchView: SearchView
+    private lateinit var searchCriteriaSpinner: Spinner
 
     private var searchJob: Job? = null
 
@@ -38,6 +41,7 @@ class SearchFragment : Fragment() {
 
         recyclerView = view.findViewById(R.id.recycler_view)
         searchView = view.findViewById(R.id.search_view)
+        searchCriteriaSpinner = view.findViewById(R.id.search_criteria_spinner)
 
         adapter = MyRecipeAdapter(requireContext())
         recyclerView.layoutManager = LinearLayoutManager(context)
@@ -51,8 +55,6 @@ class SearchFragment : Fragment() {
             }
         })
 
-        recipeViewModel.getAllMeals()
-
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 return true
@@ -64,7 +66,18 @@ class SearchFragment : Fragment() {
                 searchJob = CoroutineScope(Dispatchers.Main).launch {
                     delay(300) // Debounce delay
                     if (!newText.isNullOrBlank()) {
-                        recipeViewModel.getMealListByTitle(newText)
+                        val selectedCriteria = searchCriteriaSpinner.selectedItem.toString()
+                        when (selectedCriteria) {
+                            "Category" -> {
+                                recipeViewModel.getAllMealsInCategory(newText)
+                            }
+                            "Ingredient" -> {
+                                recipeViewModel.getMealListByIngredient(newText)
+                            }
+                            else -> {
+                                recipeViewModel.getMealListByTitle(newText)
+                            }
+                        }
                     } else {
                         recipeViewModel.getAllMeals()
                     }
@@ -78,6 +91,7 @@ class SearchFragment : Fragment() {
             val action = SearchFragmentDirections.actionSearchFragmentToRecipeDetailFragment(it.strMeal)
             navController.navigate(action)
         }
+
         return view
     }
 }

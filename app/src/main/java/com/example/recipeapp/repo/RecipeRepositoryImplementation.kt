@@ -27,6 +27,10 @@ class RecipeRepositoryImplementation(val remoteDataSource: RemoteDataSource) : R
         return remoteDataSource.getAllMealsByFirstLetter(mealFirstLetter)
     }
 
+    override suspend fun getAllRemoteMealsByIngredient(ingredient: String): Response<MealResponse> {
+        return remoteDataSource.getMealsByIngredient(ingredient)
+    }
+
     override suspend fun getAllFavoriteRecipes(): List<Meal> {
         return localDataSource.getAllFavoriteRecipes()
     }

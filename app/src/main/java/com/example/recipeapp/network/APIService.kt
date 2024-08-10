@@ -18,4 +18,7 @@ interface APIService {
 
     @GET("search.php")
     suspend fun getAllMealsByFirstLetter(@Query("f") mealFirstLetter: Char): Response<MealResponse>
+
+    @GET("filter.php")
+    suspend fun getMealsByIngredient(@Query("i") ingredient: String): Response<MealResponse>
 }
