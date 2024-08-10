@@ -29,6 +29,9 @@ class SearchFragment : Fragment() {
 
     private var searchJob: Job? = null
 
+    private var savedQuery: String? = null
+    private var savedCriteria: String? = null
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -54,6 +57,18 @@ class SearchFragment : Fragment() {
                 adapter.setMeals(emptyList())
             }
         })
+
+        // Restore saved state if available
+        savedQuery?.let { searchView.setQuery(it, false) }
+        savedCriteria?.let {
+            val adapter = searchCriteriaSpinner.adapter
+            for (i in 0 until adapter.count) {
+                if (adapter.getItem(i) == it) {
+                    searchCriteriaSpinner.setSelection(i)
+                    break
+                }
+            }
+        }
 
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
@@ -93,5 +108,11 @@ class SearchFragment : Fragment() {
         }
 
         return view
+    }
+
+    override fun onPause() {
+        super.onPause()
+        savedQuery = searchView.query.toString()
+        savedCriteria = searchCriteriaSpinner.selectedItem.toString()
     }
 }
