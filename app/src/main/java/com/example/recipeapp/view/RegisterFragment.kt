@@ -34,7 +34,7 @@ class RegisterFragment : Fragment(R.layout.fragment_register) {
         registerButton = view.findViewById(R.id.btnRegister)
         loginButton = view.findViewById(R.id.loginbtn)
         db = AppDatabase.getDatabase(requireContext())
-        sharedPrefManager = SharedPrefManager(requireContext())
+        sharedPrefManager =  SharedPrefManager.getInstance(requireActivity())
 
         registerButton.setOnClickListener {
             val email = emailEditText.text.toString()

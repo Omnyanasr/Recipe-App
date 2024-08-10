@@ -1,27 +1,34 @@
 package com.example.recipeapp.view
 
-import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import androidx.fragment.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.airbnb.lottie.LottieAnimationView
 import com.example.recipeapp.R
+import com.example.recipeapp.authintication.SharedPrefManager
 
 class SplashFragment : Fragment() {
 
     private val SPLASH_DURATION = 3000L // 3 seconds
+    private lateinit var lottieAnimationView: LottieAnimationView
+    private lateinit var sharedPrefManager: SharedPrefManager
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_splash, container, false)
-        val lottieAnimationView: LottieAnimationView = view.findViewById(R.id.lottie_animation_view)
+        lottieAnimationView = view.findViewById(R.id.lottie_animation_view)
+
+        // Initialize SharedPrefManager
+        sharedPrefManager =  SharedPrefManager.getInstance(requireActivity())
 
         // Start the animation
         lottieAnimationView.playAnimation()
@@ -34,17 +41,24 @@ class SplashFragment : Fragment() {
 
         // Navigate after the splash duration
         Handler(Looper.getMainLooper()).postDelayed({
-            // Ensure we're still on the SplashFragment before navigating
-            if (isAdded && findNavController().currentDestination?.id == R.id.splashFragment) {
-                val sharedPreferences = activity?.getSharedPreferences("UserPrefs", Context.MODE_PRIVATE)
-                val isLoggedIn = sharedPreferences?.getBoolean("isLoggedIn", false) ?: false
-
+            if (isAdded) {
+                val isLoggedIn = sharedPrefManager.isLoggedIn()
+                Log.d("SplashFragment", "User logged in: $isLoggedIn")
                 if (isLoggedIn) {
-                    findNavController().navigate(R.id.action_splashFragment_to_homeFragment)
+                    val intent = Intent(requireContext(), RecipeActivity::class.java)
+                    startActivity(intent)
+                    requireActivity().finish()
                 } else {
                     findNavController().navigate(R.id.action_splashFragment_to_loginFragment)
                 }
             }
         }, SPLASH_DURATION)
+
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        // Clean up the animation when the view is destroyed
+        lottieAnimationView.cancelAnimation()
     }
 }

@@ -36,7 +36,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
 
         // Initialize database and SharedPrefManager
         db = AppDatabase.getDatabase(requireContext()) // Ensure correct initialization
-        sharedPrefManager = SharedPrefManager(requireContext())
+        sharedPrefManager =  SharedPrefManager.getInstance(requireActivity())
 
         // Set up login button click listener
         loginButton.setOnClickListener {
