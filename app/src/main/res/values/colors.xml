@@ -16,4 +16,5 @@
     <color name="colorOnSurface">#000000</color>
     <color name="colorError">#B00020</color>
     <color name="colorOnError">#FFFFFF</color>
+    <color name="favoriteFabColor">#CAB8F8</color>
 </resources>
