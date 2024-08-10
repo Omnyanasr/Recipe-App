@@ -54,6 +54,7 @@ dependencies {
     androidTestImplementation("androidx.test.espresso:espresso-core:3.6.1")
     implementation ("com.google.android.exoplayer:exoplayer:2.19.1")
     implementation ("androidx.browser:browser:1.4.0")
+    implementation ("com.pierfrancescosoffritti.androidyoutubeplayer:core:11.1.0")
 
     //Retrofit
     implementation ("com.squareup.retrofit2:retrofit:2.11.0")

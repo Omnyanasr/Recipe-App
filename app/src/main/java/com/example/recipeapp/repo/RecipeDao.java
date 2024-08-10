@@ -30,6 +30,9 @@ public interface RecipeDao {
     MealEntity getMealById(String mealId);
 
     // Additional queries if needed
+    // Delete all meals from the meals table
+    @Query("DELETE FROM meals")
+    void deleteAllMeals();
 }
 
 
