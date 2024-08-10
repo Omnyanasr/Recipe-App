@@ -4,15 +4,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.webkit.WebView
-import android.widget.Button
-import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.TextView
+import android.widget.*
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
+import com.example.recipeapp.R
 import com.example.recipeapp.db.LocalDataSource
 import com.example.recipeapp.modules.Meal
 import com.example.recipeapp.network.APIClient
@@ -21,18 +18,14 @@ import com.example.recipeapp.viewModel.RecipeViewModel
 import com.example.recipeapp.viewModel.RecipeViewModelFactory
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.progressindicator.CircularProgressIndicator
-import android.widget.Toast
 import android.net.Uri
-import android.content.Intent
-import com.example.recipeapp.R
 
 class RecipeDetailFragment : Fragment() {
 
-    val args: com.example.recipeapp.view.RecipeDetailFragmentArgs by navArgs()
+    val args: RecipeDetailFragmentArgs by navArgs()
     lateinit var currentMeal: Meal
     lateinit var viewModel: RecipeViewModel
 
-    private lateinit var youtubeWebView: WebView
     private lateinit var playVideoButton: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -59,10 +52,8 @@ class RecipeDetailFragment : Fragment() {
         val moreInfoBTN: View = view.findViewById(R.id.more_info_include)
         val moreInfoLayout: LinearLayout = view.findViewById(R.id.more_linear)
         val lessInfoBTN: View = view.findViewById(R.id.less_info_include)
-        val progressIndicator : CircularProgressIndicator = view.findViewById(R.id.progress_indicator)
+        val progressIndicator: CircularProgressIndicator = view.findViewById(R.id.progress_indicator)
 
-        // Initialize WebView for YouTube video
-        youtubeWebView = view.findViewById(R.id.youtube_webview)
         playVideoButton = view.findViewById(R.id.play_video_button)
 
         getViewModel()
@@ -79,12 +70,12 @@ class RecipeDetailFragment : Fragment() {
                 instruction.text = meal.strInstructions
                 ingrediants.text = getIngerdiantString(meal)
 
-                //change fab image if it is in favorite
+                // Change fab image if it is in favorite
                 changeFabImage(view)
 
                 // Handle play video button click
                 playVideoButton.setOnClickListener {
-                    playVideo(currentMeal.strYoutube ?: "")
+                    loadVideoInPlayer(currentMeal.strYoutube ?: "")
                 }
             }
         })
@@ -102,15 +93,18 @@ class RecipeDetailFragment : Fragment() {
         }
     }
 
-    private fun playVideo(youtubeUrl: String) {
-        if (youtubeUrl.isNotEmpty()) {
-            val youtubeIntent = Intent(Intent.ACTION_VIEW, Uri.parse(youtubeUrl))
-            startActivity(youtubeIntent)
+    private fun loadVideoInPlayer(youtubeUrl: String) {
+        val videoId = Uri.parse(youtubeUrl).getQueryParameter("v")
+        if (!videoId.isNullOrEmpty()) {
+            val dialogFragment = VideoDialogFragment()
+            val bundle = Bundle()
+            bundle.putString("VIDEO_ID", videoId)
+            dialogFragment.arguments = bundle
+            dialogFragment.show(parentFragmentManager, "video_dialog")
         } else {
             Toast.makeText(requireContext(), "Invalid video URL", Toast.LENGTH_SHORT).show()
         }
     }
-
 
     private fun getViewModel() {
         val recipeRepositoryImplementation = RecipeRepositoryImplementation(APIClient)
@@ -122,71 +116,64 @@ class RecipeDetailFragment : Fragment() {
     }
 
     private fun getIngerdiantString(meal: Meal): String {
+        val listOfIngrediants = listOf<String?>(
+            meal.strIngredient1,
+            meal.strIngredient2,
+            meal.strIngredient3,
+            meal.strIngredient4,
+            meal.strIngredient5,
+            meal.strIngredient6,
+            meal.strIngredient7,
+            meal.strIngredient8,
+            meal.strIngredient9,
+            meal.strIngredient10,
+            meal.strIngredient11,
+            meal.strIngredient12,
+            meal.strIngredient13,
+            meal.strIngredient14,
+            meal.strIngredient15,
+            meal.strIngredient16,
+            meal.strIngredient17,
+            meal.strIngredient18,
+            meal.strIngredient19,
+            meal.strIngredient20
+        )
 
-            val listOfIngrediants = listOf<String?>(
-                meal.strIngredient1,
-                meal.strIngredient2,
-                meal.strIngredient3,
-                meal.strIngredient4,
-                meal.strIngredient5,
-                meal.strIngredient6,
-                meal.strIngredient7,
-                meal.strIngredient8,
-                meal.strIngredient9,
-                meal.strIngredient10,
-                meal.strIngredient11,
-                meal.strIngredient12,
-                meal.strIngredient13,
-                meal.strIngredient14,
-                meal.strIngredient15,
-                meal.strIngredient16,
-                meal.strIngredient17,
-                meal.strIngredient18,
-                meal.strIngredient19,
-                meal.strIngredient20
-            )
+        val listOfMeasures = listOf<String?>(
+            meal.strMeasure1,
+            meal.strMeasure2,
+            meal.strMeasure3,
+            meal.strMeasure4,
+            meal.strMeasure5,
+            meal.strMeasure6,
+            meal.strMeasure7,
+            meal.strMeasure8,
+            meal.strMeasure9,
+            meal.strMeasure10,
+            meal.strMeasure11,
+            meal.strMeasure12,
+            meal.strMeasure13,
+            meal.strMeasure14,
+            meal.strMeasure15,
+            meal.strMeasure16,
+            meal.strMeasure17,
+            meal.strMeasure18,
+            meal.strMeasure19,
+            meal.strMeasure20
+        )
 
-            val listOfMeasures = listOf<String?>(
-                meal.strMeasure1,
-                meal.strMeasure2,
-                meal.strMeasure3,
-                meal.strMeasure4,
-                meal.strMeasure5,
-                meal.strMeasure6,
-                meal.strMeasure7,
-                meal.strMeasure8,
-                meal.strMeasure9,
-                meal.strMeasure10,
-                meal.strMeasure11,
-                meal.strMeasure12,
-                meal.strMeasure13,
-                meal.strMeasure14,
-                meal.strMeasure15,
-                meal.strMeasure16,
-                meal.strMeasure17,
-                meal.strMeasure18,
-                meal.strMeasure19,
-                meal.strMeasure20
-            )
+        val stringBuilder = StringBuilder()
 
-            val stringBuilder = StringBuilder()
-
-            for (i in listOfIngrediants.indices) {
-                if (!listOfIngrediants[i].isNullOrEmpty()) {
-                    stringBuilder.append("${listOfMeasures[i] ?: ""}  ${listOfIngrediants[i]}\n\n")
-                }
+        for (i in listOfIngrediants.indices) {
+            if (!listOfIngrediants[i].isNullOrEmpty()) {
+                stringBuilder.append("${listOfMeasures[i] ?: ""}  ${listOfIngrediants[i]}\n\n")
             }
-
-            return stringBuilder.toString()
         }
 
-    override fun onStop() {
-            super.onStop()
-            // Clean up the WebView
-            youtubeWebView.loadUrl("about:blank")
-        }
+        return stringBuilder.toString()
+    }
 
-    fun changeFabImage(view: View) {
+    private fun changeFabImage(view: View) {
         val fab: FloatingActionButton = view.findViewById(R.id.favoriteBTN)
         viewModel.isFavorite.observe(viewLifecycleOwner, { isFavorite ->
             if (isFavorite) {
@@ -195,7 +182,6 @@ class RecipeDetailFragment : Fragment() {
                 fab.setImageResource(R.drawable.ic_launcher_favorite_border_foreground)
             }
         })
-
 
         fab.setOnClickListener {
             if (viewModel.isFavorite.value == false) {
@@ -207,16 +193,11 @@ class RecipeDetailFragment : Fragment() {
                 fab.setImageResource(R.drawable.ic_launcher_favorite_border_foreground)
                 fab.contentDescription = getText(R.string.not_favorite)
             }
-
         }
 
         viewModel.isFavoriteRecipe(currentMeal.idMeal)
     }
 }
-
-
-
-
 
 
 

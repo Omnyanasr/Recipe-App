@@ -11,6 +11,7 @@ class RecipeRepositoryImplementation(val remoteDataSource: RemoteDataSource) : R
     lateinit var  localDataSource: LocalDataSource
 
 
+
     override suspend fun getRemoteCategoryList(): Response<CategoryResponse> {
         return remoteDataSource.getCategoryList()
     }
@@ -45,5 +46,8 @@ class RecipeRepositoryImplementation(val remoteDataSource: RemoteDataSource) : R
 
     override suspend fun isFavoriteRecipe(recipeId: String): Int {
         return localDataSource.isFavoriteRecipe(recipeId)
+    }
+    override suspend fun deleteAllFavoriteRecipes() {
+        localDataSource.deleteAllFavoriteRecipes()
     }
 }

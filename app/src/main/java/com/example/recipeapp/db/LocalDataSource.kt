@@ -9,6 +9,7 @@ import com.example.recipeapp.modules.MealResponse
 class LocalDataSource private constructor(context: Context) : LocalDataSourceInterface {
 
     private lateinit var recipeDao: RecipeDao
+
     init {
         val recipeDB = RecipeDB.getInstance(context)
         if (recipeDB != null) {
@@ -16,7 +17,7 @@ class LocalDataSource private constructor(context: Context) : LocalDataSourceInt
         }
     }
 
-    companion object{
+    companion object {
         private var instance: LocalDataSource? = null
 
         fun getInstance(context: Context): LocalDataSource? {
@@ -43,5 +44,8 @@ class LocalDataSource private constructor(context: Context) : LocalDataSourceInt
         return recipeDao.isFavoriteRecipe(recipeId)
     }
 
-
+    // Method to delete all favorite recipes
+    suspend fun deleteAllFavoriteRecipes() {
+        recipeDao.deleteAllMeals()
+    }
 }
