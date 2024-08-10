@@ -1,10 +1,9 @@
-package com.example.recipeapp
+package com.example.recipeapp.view
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
 import android.widget.SearchView
 import android.widget.Spinner
 import androidx.fragment.app.Fragment
@@ -13,6 +12,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.recipeapp.R
 import com.example.recipeapp.repo.RecipeRepositoryImplementation
 import com.example.recipeapp.network.APIClient
 import com.example.recipeapp.viewModel.RecipeViewModel
@@ -103,7 +103,10 @@ class SearchFragment : Fragment() {
 
         adapter.onItemClick = {
             val navController = Navigation.findNavController(view)
-            val action = SearchFragmentDirections.actionSearchFragmentToRecipeDetailFragment(it.strMeal)
+            val action =
+                com.example.recipeapp.view.SearchFragmentDirections.actionSearchFragmentToRecipeDetailFragment(
+                    it.strMeal
+                )
             navController.navigate(action)
         }
 

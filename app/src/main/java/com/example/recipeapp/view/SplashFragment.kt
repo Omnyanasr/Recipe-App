@@ -1,4 +1,4 @@
-package com.example.recipeapp
+package com.example.recipeapp.view
 
 import android.content.Context
 import android.os.Bundle
@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.airbnb.lottie.LottieAnimationView
+import com.example.recipeapp.R
 
 class SplashFragment : Fragment() {
 

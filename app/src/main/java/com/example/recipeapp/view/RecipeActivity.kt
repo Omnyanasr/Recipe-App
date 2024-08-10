@@ -1,4 +1,4 @@
-package com.example.recipeapp
+package com.example.recipeapp.view
 
 import android.content.Intent
 import android.os.Bundle
@@ -12,6 +12,7 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupActionBarWithNavController
+import com.example.recipeapp.R
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class RecipeActivity : AppCompatActivity() {

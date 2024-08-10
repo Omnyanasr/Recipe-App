@@ -1,4 +1,4 @@
-package com.example.recipeapp
+package com.example.recipeapp.view
 
 import AppDatabase
 import android.content.Intent
@@ -9,6 +9,7 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.example.recipeapp.R
 import com.example.recipeapp.authintication.SharedPrefManager
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers

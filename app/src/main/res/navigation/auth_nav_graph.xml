@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/splashFragment"
-        android:name="com.example.recipeapp.SplashFragment"
+        android:name="com.example.recipeapp.view.SplashFragment"
         android:label="SplashFragment"
         tools:layout="@layout/fragment_splash">
         <action
@@ -20,7 +20,7 @@
 
     <fragment
         android:id="@+id/loginFragment"
-        android:name="com.example.recipeapp.LoginFragment"
+        android:name="com.example.recipeapp.view.LoginFragment"
         android:label="LoginFragment"
         tools:layout="@layout/fragment_login">
         <action
@@ -33,7 +33,7 @@
 
     <fragment
         android:id="@+id/registerFragment"
-        android:name="com.example.recipeapp.RegisterFragment"
+        android:name="com.example.recipeapp.view.RegisterFragment"
         android:label="RegisterFragment"
         tools:layout="@layout/fragment_register" >
         <action

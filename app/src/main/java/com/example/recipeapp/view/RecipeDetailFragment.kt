@@ -1,4 +1,4 @@
-package com.example.recipeapp
+package com.example.recipeapp.view
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -24,10 +24,11 @@ import com.google.android.material.progressindicator.CircularProgressIndicator
 import android.widget.Toast
 import android.net.Uri
 import android.content.Intent
+import com.example.recipeapp.R
 
 class RecipeDetailFragment : Fragment() {
 
-    val args: RecipeDetailFragmentArgs by navArgs()
+    val args: com.example.recipeapp.view.RecipeDetailFragmentArgs by navArgs()
     lateinit var currentMeal: Meal
     lateinit var viewModel: RecipeViewModel
 
