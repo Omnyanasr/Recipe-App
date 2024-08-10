@@ -15,6 +15,7 @@ import com.example.recipeapp.network.APIClient
 import com.example.recipeapp.repo.RecipeRepositoryImplementation
 import com.example.recipeapp.viewModel.RecipeViewModel
 import com.example.recipeapp.viewModel.RecipeViewModelFactory
+import com.google.android.material.progressindicator.CircularProgressIndicator
 
 class HomeFragment : Fragment() {
     lateinit var recyclerView: RecyclerView
@@ -33,9 +34,11 @@ class HomeFragment : Fragment() {
         myAdapter = MyRecipeAdapter(requireContext())
         recyclerView.adapter = myAdapter
         recyclerView.layoutManager = LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
+        val progressIndicator : CircularProgressIndicator = view.findViewById(R.id.home_progress_indicator)
 
         getViewModel()
         recipeViewModel.listOfMeals?.observe(viewLifecycleOwner, Observer {
+            progressIndicator.visibility = View.GONE
             myAdapter.setMeals(it.meals)
         })
 
