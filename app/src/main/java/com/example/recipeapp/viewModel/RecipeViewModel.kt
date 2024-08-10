@@ -92,6 +92,7 @@ class RecipeViewModel(val recipeRepository: RecipeRepository) : ViewModel() {
     fun insertIntoFavoriteRecipe(meal: Meal) {
         viewModelScope.launch {
             recipeRepository.insertIntoFavorite(meal)
+            _isFavorite.value = true
         }
     }
 
@@ -99,7 +100,8 @@ class RecipeViewModel(val recipeRepository: RecipeRepository) : ViewModel() {
         viewModelScope.launch {
             recipeRepository.deleteFromFavorite(meal)
             // Refresh the list after deletion
-            _listOfMeals.value = MealResponse(recipeRepository.getAllFavoriteRecipes())
+//            _listOfMeals.value = MealResponse(recipeRepository.getAllFavoriteRecipes())
+            _isFavorite.value = false
         }
     }
 
