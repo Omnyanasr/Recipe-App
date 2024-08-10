@@ -1,20 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Colors for the app -->
     <color name="black">#FF000000</color>
+    <color name="gray">#808080</color>
+    <color name="dark_gray">#BF333333</color>
     <color name="white">#FFFFFFFF</color>
     <color name="about">#A55F09</color>
     <color name="info_gray">#8F8D8D</color>
-    <color name="colorPrimary">#6200EE</color>
-    <color name="colorPrimaryVariant">#3700B3</color>
+    <color name="green">#01BD91</color>
+    <color name="favoriteFabColor">#CAB8F8</color>
+
+
+    <!-- Primary colors -->
+    <color name="colorPrimary">#FF000000</color>
+    <color name="colorPrimaryVariant">#FF000000</color>
     <color name="colorOnPrimary">#FFFFFF</color>
-    <color name="colorSecondary">#03DAC6</color>
-    <color name="colorSecondaryVariant">#018786</color>
-    <color name="colorOnSecondary">#000000</color>
-    <color name="colorBackground">#9C27B0</color>
+
+    <!-- Secondary colors -->
+    <color name="colorSecondary">#808080</color>
+    <color name="colorSecondaryVariant">#CCCCCC</color>
+    <color name="colorOnSecondary">#333333</color>
+
+    <!-- Background colors -->
+    <color name="colorBackground">#808080</color> <!-- Gray background color -->
     <color name="colorOnBackground">#000000</color>
+
+    <!-- Surface colors -->
     <color name="colorSurface">#FFFFFF</color>
     <color name="colorOnSurface">#000000</color>
+
+    <!-- Error colors -->
     <color name="colorError">#B00020</color>
     <color name="colorOnError">#FFFFFF</color>
-    <color name="favoriteFabColor">#CAB8F8</color>
 </resources>

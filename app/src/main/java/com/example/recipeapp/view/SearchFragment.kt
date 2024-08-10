@@ -112,6 +112,10 @@ class SearchFragment : Fragment() {
 
         return view
     }
+    override fun onResume() {
+        super.onResume()
+        (activity as? RecipeActivity)?.setToolbarTitle("Search")
+    }
 
     override fun onPause() {
         super.onPause()
