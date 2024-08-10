@@ -44,7 +44,7 @@
 
     <fragment
         android:id="@+id/aboutFragment"
-        android:name="com.example.recipeapp.about.AboutFragment"
+        android:name="com.example.recipeapp.view.about.AboutFragment"
         android:label="About the Creator"
         tools:layout="@layout/fragment_about">
         <action
