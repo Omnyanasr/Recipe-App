@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
@@ -17,16 +18,16 @@ import com.example.recipeapp.repo.RecipeRepositoryImplementation
 import com.example.recipeapp.viewModel.RecipeViewModel
 import com.example.recipeapp.viewModel.RecipeViewModelFactory
 
-
 class FavoriteFragment : Fragment() {
 
-    lateinit var recyclerView: RecyclerView
-    lateinit var myAdapter: MyRecipeAdapter
-    lateinit var recipeViewModel: RecipeViewModel
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var myAdapter: MyRecipeAdapter
+    private lateinit var recipeViewModel: RecipeViewModel
+    private lateinit var selectAllButton: Button
+    private lateinit var removeAllButton: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
     }
 
     override fun onCreateView(
@@ -40,24 +41,40 @@ class FavoriteFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         recyclerView = view.findViewById(R.id.favoriteRecyclerView)
+        selectAllButton = view.findViewById(R.id.select_all_button)
+        removeAllButton = view.findViewById(R.id.remove_all_button)
         myAdapter = MyRecipeAdapter(requireContext())
         recyclerView.adapter = myAdapter
         recyclerView.layoutManager = LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
 
+        // Initialize ViewModel
         getViewModel()
 
-        recipeViewModel.listOfMeals?.observe(viewLifecycleOwner, Observer {
+        // Observe listOfMeals LiveData to update the UI when data changes
+        recipeViewModel.listOfMeals.observe(viewLifecycleOwner, Observer {
             myAdapter.setMeals(it.meals)
         })
+
+        // Fetch the favorite recipes
         recipeViewModel.getAllFavoriteRecipes()
 
+        // Handle item click to navigate to recipe detail
         myAdapter.onItemClick = {
             val navController = Navigation.findNavController(view)
             val action = FavoriteFragmentDirections.actionFavoriteFragmentToRecipeDetailFragment(it.strMeal)
             navController.navigate(action)
         }
-    }
 
+        // Handle Select All functionality (optional)
+        selectAllButton.setOnClickListener {
+            myAdapter.selectAllItems()
+        }
+
+        // Handle Remove All functionality
+        removeAllButton.setOnClickListener {
+            recipeViewModel.deleteAllFavoriteRecipes()
+        }
+    }
 
     private fun getViewModel() {
         val recipeRepositoryImplementation =  RecipeRepositoryImplementation(APIClient)
@@ -67,6 +84,5 @@ class FavoriteFragment : Fragment() {
         )
         recipeViewModel = ViewModelProvider(this, recipeViewModelFactory).get(RecipeViewModel::class.java)
     }
-
-
 }
+

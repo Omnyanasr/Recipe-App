@@ -14,8 +14,11 @@ import com.example.recipeapp.modules.Meal
 
 class MyRecipeAdapter(val context: Context) : RecyclerView.Adapter<MyRecipeAdapter.MyViewHolder>() {
 
-    private var meals : List<Meal> = listOf<Meal>()
-    var onItemClick : ((Meal) -> Unit)? = null
+    private var meals: List<Meal> = listOf()
+    var onItemClick: ((Meal) -> Unit)? = null
+
+    private var selectedMeals: MutableSet<Meal> = mutableSetOf()
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_row, parent, false)
         return MyViewHolder(view)
@@ -26,35 +29,58 @@ class MyRecipeAdapter(val context: Context) : RecyclerView.Adapter<MyRecipeAdapt
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        holder.recipeTitle.text = meals.get(position)?.strMeal
-        Glide.with(context).load(meals.get(position)?.strMealThumb).into(holder.image)
+        val meal = meals[position]
 
-        //click listener used to navigate to recipe detail
-        /*
-            TO USE: replace any {}
+        holder.recipeTitle.text = meal.strMeal
+        Glide.with(context).load(meal.strMealThumb).into(holder.image)
 
-                myRecipeAdapter.onItemClick = {
-                    val navController = Navigation.findNavController(view)
-                    val action : NavDirections = {fragment class name}Directions.action{from fragment class name}FragmentTo{to fragment class name}}Fragment({arguments})
-                    navController.navigate(action)
-                }
+        // Update UI based on whether the meal is selected
+        holder.card.alpha = if (selectedMeals.contains(meal)) 0.5f else 1.0f
 
-         */
+        holder.card.setOnClickListener {
+            onItemClick?.invoke(meal)
+        }
 
-        holder.card.setOnClickListener{
-            onItemClick?.invoke(meals?.get(position)!!)
+        holder.card.setOnLongClickListener {
+            if (selectedMeals.contains(meal)) {
+                selectedMeals.remove(meal)
+                holder.card.alpha = 1.0f
+            } else {
+                selectedMeals.add(meal)
+                holder.card.alpha = 0.5f
+            }
+            true
         }
     }
 
     fun setMeals(meals: List<Meal>) {
         this.meals = meals
+        selectedMeals.clear()  // Clear selection when setting new data
         notifyDataSetChanged()
     }
 
-    class MyViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
-        val image : ImageView= view.findViewById(R.id.img_recipe)
-        val recipeTitle : TextView = view.findViewById(R.id.recipeTitleTxt)
-        val card : CardView = view.findViewById(R.id.cv_item)
+    fun selectAllItems() {
+        selectedMeals.clear()
+        selectedMeals.addAll(meals)
+        notifyDataSetChanged()
     }
 
+    fun clearAllSelections() {
+        selectedMeals.clear()
+        notifyDataSetChanged()
+    }
+
+    fun getSelectedMeals(): List<Meal> {
+        return selectedMeals.toList()
+    }
+
+    fun removeMeal(meal: Meal) {
+        meals = meals.filter { it.idMeal != meal.idMeal }
+        notifyDataSetChanged()
+    }
+    class MyViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
+        val image: ImageView = view.findViewById(R.id.img_recipe)
+        val recipeTitle: TextView = view.findViewById(R.id.recipeTitleTxt)
+        val card: CardView = view.findViewById(R.id.cv_item)
+    }
 }
