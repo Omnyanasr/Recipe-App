@@ -6,13 +6,9 @@ import java.io.Serializable
 
 @Entity(tableName = "favorite_meal_recipes")
 data class Meal(
-//    val dateModified: Any,
     @PrimaryKey val idMeal: String,
     val strArea: String,
     val strCategory: String,
-//    val strCreativeCommonsConfirmed: Any,
-//    val strDrinkAlternate: Any,
-//    val strImageSource: Any,
     val strIngredient1: String?,
     val strIngredient10: String?,
     val strIngredient11: String?,
@@ -59,4 +55,16 @@ data class Meal(
     val strSource: String?,
     val strTags: String?,
     val strYoutube: String?
-) : Serializable
+) : Serializable {
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is Meal) return false
+
+        return idMeal == other.idMeal
+    }
+
+    override fun hashCode(): Int {
+        return idMeal.hashCode()
+    }
+}

@@ -1,6 +1,7 @@
 package com.example.recipeapp.view
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -80,8 +81,13 @@ class SearchFragment : Fragment() {
 
                 searchJob = CoroutineScope(Dispatchers.Main).launch {
                     delay(300) // Debounce delay
-                    if (!newText.isNullOrBlank()) {
+                    if (newText.isNullOrBlank()) {
+                        // If the search bar is empty, retrieve all data
+                        recipeViewModel.getAllMeals()
+                    } else {
+                        // Otherwise, perform the search based on the selected criteria
                         val selectedCriteria = searchCriteriaSpinner.selectedItem.toString()
+                        Log.d("SearchFragment", "Selected criteria: $selectedCriteria")
                         when (selectedCriteria) {
                             "Category" -> {
                                 recipeViewModel.getAllMealsInCategory(newText)
@@ -93,8 +99,6 @@ class SearchFragment : Fragment() {
                                 recipeViewModel.getMealListByTitle(newText)
                             }
                         }
-                    } else {
-                        recipeViewModel.getAllMeals()
                     }
                 }
                 return true
@@ -115,10 +119,34 @@ class SearchFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         (activity as? RecipeActivity)?.setToolbarTitle("Search")
+
+        // Restore the search query and criteria, and trigger the search
+        savedQuery?.let { query ->
+            searchView.setQuery(query, false)
+            savedCriteria?.let { criteria ->
+                val adapter = searchCriteriaSpinner.adapter
+                for (i in 0 until adapter.count) {
+                    if (adapter.getItem(i) == criteria) {
+                        searchCriteriaSpinner.setSelection(i)
+                        break
+                    }
+                }
+                // Trigger the search with the restored query
+                searchJob = CoroutineScope(Dispatchers.Main).launch {
+                    delay(300) // Debounce delay
+                    when (criteria) {
+                        "Category" -> recipeViewModel.getAllMealsInCategory(query)
+                        "Ingredient" -> recipeViewModel.getMealListByIngredient(query)
+                        else -> recipeViewModel.getMealListByTitle(query)
+                    }
+                }
+            }
+        }
     }
 
     override fun onPause() {
         super.onPause()
+        // Save the current search query and criteria
         savedQuery = searchView.query.toString()
         savedCriteria = searchCriteriaSpinner.selectedItem.toString()
     }
