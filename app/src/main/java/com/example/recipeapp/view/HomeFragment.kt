@@ -26,7 +26,10 @@ class HomeFragment : Fragment() {
     ): View? {
         return inflater.inflate(R.layout.fragment_home, container, false)
     }
-
+    override fun onResume() {
+        super.onResume()
+        (activity as? RecipeActivity)?.setToolbarTitle("Home")
+    }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         recyclerView = view.findViewById(R.id.recipeList)

@@ -36,7 +36,13 @@ class RecipeActivity : AppCompatActivity() {
         NavigationUI.setupWithNavController(bottomNavigationView, navController)
 
         // Setup ActionBar with NavController
-        appBarConfiguration = AppBarConfiguration(navController.graph)
+        appBarConfiguration = AppBarConfiguration(
+            setOf(
+                R.id.homeFragment,
+                R.id.favoriteFragment,
+                R.id.searchFragment
+            )
+        )
         setupActionBarWithNavController(navController, appBarConfiguration)
 
         // Handle BottomNavigationView item selection
@@ -54,6 +60,16 @@ class RecipeActivity : AppCompatActivity() {
 
             true
         }
+        // Update toolbar title on navigation
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+            val title = when (destination.id) {
+                R.id.homeFragment -> "Home"
+                R.id.favoriteFragment -> "Favorites"
+                R.id.searchFragment -> "Search"
+                else -> "Recipe App"
+            }
+            setToolbarTitle(title)
+    }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -91,6 +107,9 @@ class RecipeActivity : AppCompatActivity() {
     private fun navigateToAboutFragment() {
         // Navigate to the AboutFragment
         navController.navigate(R.id.aboutFragment)
+    }
+    fun setToolbarTitle(title: String) {
+        supportActionBar?.title = title
     }
 
     override fun onSupportNavigateUp(): Boolean {
