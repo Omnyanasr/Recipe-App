@@ -13,6 +13,7 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupActionBarWithNavController
 import com.example.recipeapp.R
+import com.example.recipeapp.authintication.SharedPrefManager
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class RecipeActivity : AppCompatActivity() {
@@ -97,6 +98,8 @@ class RecipeActivity : AppCompatActivity() {
             .setMessage("Are you sure you want to sign out?")
             .setPositiveButton("Yes") { dialog, _ ->
                 dialog.dismiss()
+                val sharedPrefManager = SharedPrefManager.getInstance(this)
+                sharedPrefManager.logout()
                 startActivity(Intent(this, AuthActivity::class.java))
                 finish()
             }
