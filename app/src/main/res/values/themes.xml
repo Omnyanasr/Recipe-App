@@ -10,4 +10,7 @@
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">50%</item>
     </style>
+    <style name="AppTheme.progressIndicator" parent="Theme.AppCompat">
+        <item name="colorAccent">@color/green</item>
+    </style>
 </resources>
